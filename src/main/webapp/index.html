@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>JCON Brazil 2030 – Call for Papers</title>
+    <link rel="icon" type="image/png" href="img/jcon-brazil-2030.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800&display=swap">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/app.js" defer></script>
+</head>
+<body>
+
+<header class="site-header">
+    <img class="logo" src="img/jcon-brazil-2030.png" alt="JCON Brazil 2030"
+         onerror="this.hidden = true; this.nextElementSibling.hidden = false">
+    <span class="logo-text" hidden>JCON Brazil 2030</span>
+    <div>
+        <h1>Call for Papers</h1>
+        <p class="tagline">Submit your talk for JCON Brazil 2030</p>
+    </div>
+</header>
+<div class="stripe"></div>
+
+<main>
+    <section>
+        <h2>Submit a talk</h2>
+        <form id="submission-form">
+            <label>Speaker name
+                <input name="speakerName" required>
+            </label>
+            <label>Email
+                <input name="email" type="email" required>
+            </label>
+            <label class="wide">Talk title
+                <input name="talkTitle" required>
+            </label>
+            <label class="wide">Abstract
+                <textarea name="abstract" rows="6" maxlength="2000" required></textarea>
+            </label>
+            <label>Track
+                <select name="track" id="track">
+                    <option value="CORE_JAVA">Core Java</option>
+                    <option value="JAKARTA_EE">Jakarta EE</option>
+                    <option value="AI_AND_JAVA">AI &amp; Java</option>
+                    <option value="CLOUD_AND_DEVOPS">Cloud &amp; DevOps</option>
+                    <option value="FRONTEND">Frontend</option>
+                </select>
+            </label>
+            <label>Level
+                <select name="level" id="level">
+                    <option value="BEGINNER">Beginner</option>
+                    <option value="INTERMEDIATE">Intermediate</option>
+                    <option value="ADVANCED">Advanced</option>
+                </select>
+            </label>
+            <label>Format
+                <select name="format" id="format">
+                    <option value="TALK_45_MIN">Talk 45 min</option>
+                    <option value="WORKSHOP_2H">Workshop 2h</option>
+                    <option value="LIGHTNING_15_MIN">Lightning 15 min</option>
+                </select>
+            </label>
+            <div class="wide">
+                <button type="submit" class="btn-primary">Submit talk</button>
+                <p id="form-message" class="message" role="status"></p>
+            </div>
+        </form>
+    </section>
+
+    <section>
+        <h2>Submissions</h2>
+        <div class="table-wrap">
+            <table>
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Talk</th>
+                    <th>Track / Level / Format</th>
+                    <th>Review</th>
+                </tr>
+                </thead>
+                <tbody id="submissions"></tbody>
+            </table>
+        </div>
+    </section>
+</main>
+
+<footer>JCON Brazil is a fictional event for a live-coding demo.</footer>
+
+</body>
+</html>

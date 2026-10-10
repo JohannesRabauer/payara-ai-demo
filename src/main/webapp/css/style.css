@@ -1,0 +1,190 @@
+:root {
+    --jcon-red: #E2223B;
+    --jcon-navy: #2E4295;
+    --brazil-green: #009C3B;
+    --brazil-yellow: #FFDF00;
+    --brazil-blue: #002776;
+    --text: #0C0C0C;
+    --background: #FFFFFF;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: "Nunito", system-ui, sans-serif;
+    font-size: 18px;
+    line-height: 1.5;
+    color: var(--text);
+    background: var(--background);
+}
+
+h1, h2 {
+    color: var(--jcon-navy);
+    font-weight: 800;
+    margin: 0 0 0.5em;
+}
+
+/* Header: white, so the badge's white circle blends in */
+.site-header {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    padding: 16px 24px;
+    background: var(--background);
+}
+
+.logo {
+    width: 96px;
+    height: 96px;
+}
+
+.logo-text {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--jcon-navy);
+}
+
+.site-header h1 {
+    font-size: 2.2rem;
+    margin: 0;
+}
+
+.tagline {
+    margin: 0;
+    color: var(--brazil-blue);
+}
+
+.stripe {
+    height: 8px;
+    background: linear-gradient(to right, var(--brazil-green) 50%, var(--brazil-yellow) 50%);
+}
+
+main {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 24px 16px;
+}
+
+section {
+    margin-bottom: 40px;
+}
+
+/* Form */
+form {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+}
+
+form .wide {
+    grid-column: 1 / -1;
+}
+
+label {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    font-weight: 700;
+}
+
+input, select, textarea {
+    font: inherit;
+    font-weight: 400;
+    padding: 8px 12px;
+    border: 2px solid var(--jcon-navy);
+    border-radius: 8px;
+    background: var(--background);
+    color: var(--text);
+}
+
+/* Buttons */
+button {
+    font: inherit;
+    font-weight: 800;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 999px;
+    color: #FFFFFF;
+    cursor: pointer;
+}
+
+.btn-primary {
+    background: var(--brazil-green);
+}
+
+.btn-review {
+    background: var(--jcon-navy);
+    white-space: nowrap;
+}
+
+/* Yellow is an accent only: used for focus, never as text on white */
+:focus-visible {
+    outline: 4px solid var(--brazil-yellow);
+    outline-offset: 2px;
+}
+
+.message {
+    margin: 8px 0 0;
+}
+
+.message.error {
+    color: var(--jcon-red);
+    font-weight: 700;
+}
+
+/* Table */
+.table-wrap {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th {
+    text-align: left;
+    color: var(--background);
+    background: var(--jcon-navy);
+    padding: 10px 12px;
+}
+
+td {
+    padding: 12px;
+    border-bottom: 1px solid #D0D5E8;
+    vertical-align: top;
+}
+
+.speaker {
+    color: var(--brazil-blue);
+}
+
+footer {
+    padding: 24px 16px;
+    text-align: center;
+    border-top: 4px solid var(--brazil-green);
+}
+
+/* Phone width */
+@media (max-width: 700px) {
+    form {
+        grid-template-columns: 1fr;
+    }
+
+    .site-header {
+        gap: 12px;
+        padding: 12px 16px;
+    }
+
+    .logo {
+        width: 64px;
+        height: 64px;
+    }
+
+    .site-header h1 {
+        font-size: 1.6rem;
+    }
+}
