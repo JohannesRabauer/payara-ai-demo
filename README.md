@@ -7,6 +7,15 @@ page, and the proposals show up in a table.
 > This project is the starting point for a live session in which we add an AI
 > reviewer agent with Jakarta Agentic AI.
 
+## Watch the live session
+
+We fill this repository live on stream:
+**[youtube.com/live/bm4BRjW0pUs](https://youtube.com/live/bm4BRjW0pUs)**
+
+<a href="https://youtube.com/live/bm4BRjW0pUs">
+  <img src="https://img.youtube.com/vi/bm4BRjW0pUs/mqdefault.jpg" width="320" alt="Live coding session: Jakarta Agentic AI on Payara">
+</a>
+
 ## Run it
 
 You only need Docker:
