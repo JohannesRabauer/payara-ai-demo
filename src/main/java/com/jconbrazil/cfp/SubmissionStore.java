@@ -4,6 +4,7 @@ import jakarta.enterprise.context.ApplicationScoped;
 
 import java.time.Instant;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -33,6 +34,14 @@ public class SubmissionStore {
 
     public List<Submission> all() {
         return List.copyOf(submissions);
+    }
+
+    public Optional<Submission> find(long id) {
+        return submissions.stream().filter(s -> s.id() == id).findFirst();
+    }
+
+    public void updateReview(long id, Review review) {
+        submissions.replaceAll(s -> s.id() == id ? s.withReview(review) : s);
     }
 
     public Submission add(NewSubmission in) {

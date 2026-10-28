@@ -21,7 +21,7 @@
             <version>11.0.0</version>
             <scope>provided</scope>
         </dependency>
-        <!-- Bundled in payara/micro:7.2026.9. Used in the live session. -->
+        <!-- Bundled in payara/micro:7.2026.9. Used by SubmissionReviewAgent. -->
         <dependency>
             <groupId>jakarta.agentic-ai</groupId>
             <artifactId>jakarta.agentic-ai-api</artifactId>
@@ -40,6 +40,13 @@
             <groupId>org.glassfish.jersey.core</groupId>
             <artifactId>jersey-common</artifactId>
             <version>4.0.0</version>
+            <scope>test</scope>
+        </dependency>
+        <!-- A JSON-B implementation so the agent's LlmJson works in the plain unit test -->
+        <dependency>
+            <groupId>org.eclipse</groupId>
+            <artifactId>yasson</artifactId>
+            <version>3.0.4</version>
             <scope>test</scope>
         </dependency>
     </dependencies>

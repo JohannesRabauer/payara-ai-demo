@@ -1,0 +1,21 @@
+# Runs Ollama on an NVIDIA GPU. Needs the NVIDIA driver and the NVIDIA Container
+# Toolkit (Docker Desktop on Windows/WSL2 ships it). Use together with the main file:
+#
+#   docker compose -f docker-compose.yml -f docker-compose.gpu.yml up --build
+#
+# Check: `docker compose exec ollama nvidia-smi` lists the GPU, and
+# `docker compose exec ollama ollama ps` shows "100% GPU" after the first review.
+services:
+  ollama:
+    environment:
+      # Keep the compiled CUDA kernels in the model volume. Without this, the first
+      # prompt after every container start spends about a minute compiling them.
+      CUDA_CACHE_PATH: /root/.ollama/cuda-cache
+      CUDA_CACHE_MAXSIZE: "4294967296"
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]

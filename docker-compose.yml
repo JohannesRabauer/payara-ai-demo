@@ -6,10 +6,16 @@ services:
       - "11434:11434"
     volumes:
       - ollama-models:/root/.ollama
-    # Start the server, pull the model (cached in the volume), keep running.
-    entrypoint: ["/bin/sh", "-c", "ollama serve & sleep 3 && ollama pull gemma3:4b && wait"]
+    environment:
+      # Keep the model in memory. Loading it can take over a minute, and Payara's
+      # Ollama client gives up after 120 seconds.
+      OLLAMA_KEEP_ALIVE: "-1"
+    # Start the server, pull the model (cached in the volume), run one prompt so the
+    # model is loaded and warmed up before the first review, keep running.
+    entrypoint: ["/bin/sh", "-c", "rm -f /tmp/ready; ollama serve & sleep 3 && ollama pull gemma3:4b && ollama run gemma3:4b 'Reply with OK' >/dev/null && touch /tmp/ready && wait"]
     healthcheck:
-      test: ["CMD-SHELL", "ollama list | grep -q gemma3:4b"]
+      # Healthy once the warm-up prompt has finished, not only when the model is downloaded.
+      test: ["CMD-SHELL", "test -f /tmp/ready"]
       interval: 10s
       timeout: 5s
       retries: 60
