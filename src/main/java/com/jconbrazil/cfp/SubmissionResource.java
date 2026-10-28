@@ -1,5 +1,6 @@
 package com.jconbrazil.cfp;
 
+import jakarta.enterprise.event.Event;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.Consumes;
@@ -16,11 +17,13 @@ import java.util.Map;
 
 @Path("submissions")
 @Produces(MediaType.APPLICATION_JSON)
-@Consumes(MediaType.APPLICATION_JSON)
 public class SubmissionResource {
 
     @Inject
     SubmissionStore store;
+
+    @Inject
+    Event<ReviewRequested> reviewRequested;
 
     @GET
     public List<Submission> list() {
@@ -28,17 +31,22 @@ public class SubmissionResource {
     }
 
     @POST
+    @Consumes(MediaType.APPLICATION_JSON)
     public Response create(@Valid NewSubmission newSubmission) {
         Submission created = store.add(newSubmission);
         return Response.status(Response.Status.CREATED).entity(created).build();
     }
 
+    // The agent workflow runs synchronously inside fire(), so the review is stored when it returns.
     @POST
     @Path("{id}/review")
     public Response review(@PathParam("id") long id) {
-        // TODO live: fire the agent trigger here
-        return Response.status(501)
-                .entity(Map.of("message", "Reviewer agent not built yet"))
-                .build();
+        if (store.find(id).isEmpty()) {
+            return Response.status(Response.Status.NOT_FOUND)
+                    .entity(Map.of("message", "No submission with id " + id))
+                    .build();
+        }
+        reviewRequested.fire(new ReviewRequested(id));
+        return Response.ok(store.find(id).orElseThrow()).build();
     }
 }

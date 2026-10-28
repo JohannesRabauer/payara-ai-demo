@@ -135,6 +135,15 @@ button {
     font-weight: 700;
 }
 
+.message[data-verdict="ACCEPTED"] {
+    color: var(--brazil-green);
+}
+
+.message[data-verdict="REJECTED"],
+.message[data-verdict="OUT_OF_SCOPE"] {
+    color: var(--jcon-red);
+}
+
 /* Table */
 .table-wrap {
     overflow-x: auto;

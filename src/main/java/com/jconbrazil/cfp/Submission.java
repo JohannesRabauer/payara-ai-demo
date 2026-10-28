@@ -15,5 +15,10 @@ public record Submission(
         Level level,
         Format format,
         Instant submittedAt,
-        String review) {
+        Review review) {
+
+    public Submission withReview(Review newReview) {
+        return new Submission(id, speakerName, email, talkTitle, abstractText,
+                track, level, format, submittedAt, newReview);
+    }
 }

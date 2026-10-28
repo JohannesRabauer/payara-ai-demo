@@ -34,16 +34,38 @@ function toRow(submission) {
     row.querySelector("strong").textContent = submission.talkTitle;
     row.querySelector(".speaker").textContent = submission.speakerName;
     const reviewMessage = row.querySelector(".message");
-    reviewMessage.textContent = submission.review ?? "";
+    showReview(reviewMessage, submission.review);
     row.querySelector("button").addEventListener("click", () => requestReview(submission.id, reviewMessage));
     return row;
 }
 
+const verdictLabels = {
+    ACCEPTED: "✅ Accepted",
+    REJECTED: "❌ Rejected",
+    OUT_OF_SCOPE: "🚫 Out of scope",
+    FAILED: "⚠️ Review failed"
+};
+
+function showReview(element, review) {
+    if (!review) {
+        showMessage(element, "", false);
+        return;
+    }
+    showMessage(element, `${verdictLabels[review.verdict] ?? review.verdict}: ${review.reason ?? ""}`,
+        review.verdict === "FAILED");
+    element.dataset.verdict = review.verdict;
+}
+
 async function requestReview(id, messageElement) {
-    showMessage(messageElement, "Requesting review…", false);
+    delete messageElement.dataset.verdict;
+    showMessage(messageElement, "The reviewer agent is reading the proposal…", false);
     const response = await fetch(`api/submissions/${id}/review`, { method: "POST" });
     const body = await response.json();
-    showMessage(messageElement, body.review ?? body.message ?? JSON.stringify(body), !response.ok);
+    if (response.ok) {
+        showReview(messageElement, body.review);
+    } else {
+        showMessage(messageElement, body.message ?? JSON.stringify(body), true);
+    }
 }
 
 form.addEventListener("submit", async (event) => {
